@@ -1,0 +1,129 @@
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: flex-start; /* 세로 방향 상단 정렬 */
+    min-height: 100vh; /* 전체 화면 높이 */
+    background-color: #f4f4f4; /* 배경색 */
+    padding-top: 20px; /* 상단 여백 줄임 */
+}
+
+.auth-header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 0;
+}
+
+.logo-img {
+    width: 120px;
+    height: auto;
+}
+
+.auth-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    margin-top: -10px;
+}
+
+/* 제목 스타일 */
+.auth-form h2 {
+    margin: 0;
+    font-size: 30px;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+/* 입력창 스타일 */
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    color: #333;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 로그인 버튼 스타일 */
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.auth-btn:hover {
+    background-color: #e64a19;
+}
+
+/* 링크 스타일 */
+.auth-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-link a {
+    color: #ff5722;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* 소셜 로그인 버튼 스타일 */
+.social-login {
+    margin-top: 20px;
+}
+
+.social-login button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.social-login .kakao-login {
+    background-color: #ffeb3b;
+    color: #333;
+}
+
+.social-login .naver-login {
+    background-color: #1ec800;
+    color: white;
+}
+
+.social-login button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.social-login button:hover {
+    opacity: 0.8;
+}
