@@ -2,13 +2,14 @@ spring:
   application:
     name: EPTB
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/your_database?serverTimezone=Asia/Seoul
-    username:
-    password: your_password
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    active: dev  # 기본 프로파일을 'dev'로 설정 (다른 프로파일로 변경 가능)
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+server:
+  port: 8080  # 기본 포트 설정
+
+logging:
+  level:
+    root: info
+    org.springframework: info
+    com.example.eptb: debug
