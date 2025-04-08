@@ -36,4 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 
-eptb-backend/src/main/resources/application-dev.yml
+**/application-dev.yml
