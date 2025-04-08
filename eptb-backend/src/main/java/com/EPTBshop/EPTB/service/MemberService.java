@@ -3,19 +3,23 @@ package com.EPTBshop.EPTB.service;
 import com.EPTBshop.EPTB.dto.MemberDto;
 import com.EPTBshop.EPTB.entity.Member;
 import com.EPTBshop.EPTB.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
-    @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public ResponseEntity<Map<String, Object>> signup(Map<String, Object> memberData) {
 
@@ -34,7 +38,7 @@ public class MemberService {
             MemberDto memberDto = MemberDto.builder()
                     .loginType(0)
                     .memberId(memberData.get("memberId").toString())
-                    .password(memberData.get("password").toString())
+                    .password(passwordEncoder.encode(memberData.get("password").toString()))
                     .email(memberData.get("email").toString())
                     .nickname(memberData.get("nickname").toString())
                     .build();
