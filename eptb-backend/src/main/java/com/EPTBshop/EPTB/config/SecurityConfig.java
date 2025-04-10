@@ -20,7 +20,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/member/signup").permitAll()  // 회원가입은 인증 없이 허용
+                        .requestMatchers("/member/signup", "/member/sendEmail").permitAll()  // 회원가입은 인증 없이 허용
                         .anyRequest().authenticated()           // 나머지는 인증 필요
                 );
 

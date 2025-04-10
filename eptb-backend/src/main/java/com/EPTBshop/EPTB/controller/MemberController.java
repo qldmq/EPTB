@@ -26,4 +26,12 @@ public class MemberController {
         
         return memberService.signup(memberData);
     }
+
+    @PostMapping("sendEmail")
+    public ResponseEntity<Map<String, Object>> sendEmail(@RequestBody Map<String, Object> emailData) {
+        
+        log.info("sendEmail api 진입");
+
+        return memberService.sendEmail(emailData);
+    }
 }
