@@ -3,10 +3,10 @@ spring:
     name: EPTB
 
   profiles:
-    active: dev  # 기본 프로파일을 'dev'로 설정 (다른 프로파일로 변경 가능)
+    active: dev
 
 server:
-  port: 8080  # 기본 포트 설정
+  port: 8080
 
 logging:
   level:
