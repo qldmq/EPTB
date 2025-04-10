@@ -1,6 +1,6 @@
-package com.EPTBshop.EPTB.controller;
+package com.EPTBshop.EPTB.domain.mail.controller;
 
-import com.EPTBshop.EPTB.service.MemberService;
+import com.EPTBshop.EPTB.domain.mail.service.MailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,24 +14,16 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("/member")
-public class MemberController {
+public class MailController {
 
     @Autowired
-    private MemberService memberService;
-
-    @PostMapping("signup")
-    public ResponseEntity<Map<String, Object>> signup(@RequestBody Map<String, Object> memberData) {
-
-        log.info("signup api 진입");
-        
-        return memberService.signup(memberData);
-    }
+    private MailService mailService;
 
     @PostMapping("sendEmail")
     public ResponseEntity<Map<String, Object>> sendEmail(@RequestBody Map<String, Object> emailData) {
-        
+
         log.info("sendEmail api 진입");
 
-        return memberService.sendEmail(emailData);
+        return mailService.sendEmail(emailData);
     }
 }

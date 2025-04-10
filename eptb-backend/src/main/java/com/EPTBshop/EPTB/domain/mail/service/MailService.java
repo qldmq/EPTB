@@ -1,8 +1,6 @@
-package com.EPTBshop.EPTB.service;
+package com.EPTBshop.EPTB.domain.mail.service;
 
-import com.EPTBshop.EPTB.dto.MemberDto;
-import com.EPTBshop.EPTB.entity.Member;
-import com.EPTBshop.EPTB.repository.MemberRepository;
+import com.EPTBshop.EPTB.domain.member.repository.MemberRepository;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -20,44 +17,10 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MailService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
-
-    // 회원가입
-    public ResponseEntity<Map<String, Object>> signup(Map<String, Object> memberData) {
-
-        HashMap<String, Object> responseMap = new HashMap<>();
-
-        try {
-            if (memberRepository.existsByMemberId(memberData.get("memberId").toString())) {
-                responseMap.put("message", "이미 존재하는 아이디입니다.");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseMap);
-            }
-            if (memberRepository.existsByNickname(memberData.get("nickname").toString())) {
-                responseMap.put("message", "이미 존재하는 닉네임입니다.");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseMap);
-            }
-
-            MemberDto memberDto = MemberDto.builder()
-                    .loginType(0)
-                    .memberId(memberData.get("memberId").toString())
-                    .password(passwordEncoder.encode(memberData.get("password").toString()))
-                    .email(memberData.get("email").toString())
-                    .nickname(memberData.get("nickname").toString())
-                    .build();
-
-            Member member = Member.toEntity(memberDto);
-            memberRepository.save(member);
-            responseMap.put("message", "회원가입 성공");
-            return ResponseEntity.status(HttpStatus.OK).body(responseMap);
-        } catch (Exception e) {
-            responseMap.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseMap);
-        }
-    }
 
     // 이메일 인증번호 전송
     public ResponseEntity<Map<String, Object>> sendEmail(Map<String, Object> emailData) {
@@ -105,9 +68,9 @@ public class MemberService {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
-    
-    
-    
-    
-    
+
+
+
+
+
 }

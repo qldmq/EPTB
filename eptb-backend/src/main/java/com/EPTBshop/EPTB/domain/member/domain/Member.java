@@ -1,6 +1,5 @@
-package com.EPTBshop.EPTB.entity;
+package com.EPTBshop.EPTB.domain.member.domain;
 
-import com.EPTBshop.EPTB.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,15 +33,4 @@ public class Member {
 
     @Column(name = "nickname")
     private String nickname;
-
-    public static Member toEntity(MemberDto dto) {
-        return Member.builder()
-                .memberNum(dto.getMemberNum())
-                .memberId(dto.getMemberId())
-                .email(dto.getEmail())
-                .password(dto.getPassword())
-                .loginType(dto.getLoginType())
-                .nickname(dto.getNickname())
-                .build();
-    }
 }
