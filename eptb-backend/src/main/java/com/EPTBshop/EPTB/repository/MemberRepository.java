@@ -14,4 +14,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     @Query("SELECT COUNT(m) > 0 FROM Member m WHERE m.nickname = :nickname")
     boolean existsByNickname(@Param("nickname") String nickname);
+
+    @Query("SELECT COUNT(m) > 0 FROM Member m WHERE m.email = :email")
+    boolean existByEmail(@Param("email") String email);
 }
