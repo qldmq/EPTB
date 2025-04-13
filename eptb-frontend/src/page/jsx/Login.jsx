@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Auth.css';
+import '../css/Auth.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
