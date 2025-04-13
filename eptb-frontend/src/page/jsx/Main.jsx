@@ -1,5 +1,5 @@
 import React from 'react';
-import './Main.css';
+import '../css/Main.css';
 
 const Main = () => {
   const products = [
@@ -13,7 +13,6 @@ const Main = () => {
     <div className="main-container">
       <header className="header">
         <div className="logo">
-          {/* 로고 이미지 */}
           <img src="/images/logo.png" alt="EPTB 로고" className="logo-img" />
         </div>
         <nav className="nav">
@@ -27,7 +26,6 @@ const Main = () => {
         </nav>
       </header>
 
-      {/* 새로운 네비게이션 바 추가 */}
       <nav className="category-nav">
         <ul>
           <li><a href="/category/상의">상의</a></li>
@@ -42,7 +40,6 @@ const Main = () => {
         <div className="products">
           {products.map(product => (
             <div key={product.id} className="product-item">
-              {/* 상품 이미지 */}
               <img src={`/images/${product.image}`} alt={product.name} className="product-image" />
               <h3>{product.name}</h3>
               <p>₩{product.price.toLocaleString()}</p>
