@@ -1,5 +1,6 @@
 package com.EPTBshop.EPTB.domain.member.controller;
 
+import com.EPTBshop.EPTB.domain.member.dto.LoginRequestDto;
 import com.EPTBshop.EPTB.domain.member.dto.MemberRequestDto;
 import com.EPTBshop.EPTB.domain.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,13 @@ public class MemberController {
     }
 
     // 로그인
+    @PostMapping("login")
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequestDto loginRequestDto) {
+
+        log.info("login api 진입");
+
+        return memberService.login(loginRequestDto);
+    }
 
     // 로그아웃
 
