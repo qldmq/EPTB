@@ -19,8 +19,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/member/signup", "/member/sendEmail").permitAll()  // 회원가입은 인증 없이 허용
+                        .requestMatchers("/member/**").permitAll()  // member/*는 인증 없이 허용
                         .anyRequest().authenticated()           // 나머지는 인증 필요
                 );
 
