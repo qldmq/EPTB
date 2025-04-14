@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../css/Main.css';
 
 const Main = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [memberId, setMemberId] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    const storedMemberId = localStorage.getItem('memberId');
+
+    if (token && storedMemberId) {
+      setIsLoggedIn(true);
+      setMemberId(storedMemberId);
+    } else {
+      setIsLoggedIn(false);
+      setMemberId('');
+    }
+  }, [location]); // URL 바뀔 때마다 상태 확인
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('memberId');
+    setIsLoggedIn(false);
+    setMemberId('');
+    navigate('/');
+    window.location.reload(); // 완전 새로고침으로 상태 반영
+  };
+
   const products = [
     { id: 1, name: '셔츠', price: 29900, image: 'shirt.jpg' },
     { id: 2, name: '청바지', price: 49900, image: 'jeans.jpg' },
@@ -20,8 +48,17 @@ const Main = () => {
             <li><a href="/">홈</a></li>
             <li><a href="/about">소개</a></li>
             <li><a href="/contact">연락처</a></li>
-            <li><a href="/login" className="auth-link">로그인</a></li>
-            <li><a href="/signup" className="auth-link">회원가입</a></li>
+            {isLoggedIn ? (
+              <>
+                <li><a href="/mypage">{memberId}님의 마이페이지</a></li>
+                <li><button onClick={handleLogout} className="auth-link">로그아웃</button></li>
+              </>
+            ) : (
+              <>
+                <li><a href="/login" className="auth-link">로그인</a></li>
+                <li><a href="/signup" className="auth-link">회원가입</a></li>
+              </>
+            )}
           </ul>
         </nav>
       </header>
