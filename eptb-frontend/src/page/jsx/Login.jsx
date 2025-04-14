@@ -19,11 +19,11 @@ const Login = () => {
         withCredentials: true
       });
 
-      // 로그인 성공 시 localStorage에 토큰 및 회원 아이디 저장
+      // 로그인 성공 시 localStorage에 토큰, 회원 아이디, 닉네임 저장
       localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('memberId', response.data.memberId);
+      localStorage.setItem('nickname', response.data.nickname);
 
-      alert('로그인 성공!');
       navigate('/');
       window.location.reload(); // 메인 상태 반영
     } catch (error) {
