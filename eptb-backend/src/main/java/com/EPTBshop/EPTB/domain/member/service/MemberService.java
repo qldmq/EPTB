@@ -84,6 +84,7 @@ public class MemberService {
 
         responseMap.put("message", "로그인 성공");
         responseMap.put("accessToken", accessToken);
+        responseMap.put("nickname", member.getNickname());
 
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
