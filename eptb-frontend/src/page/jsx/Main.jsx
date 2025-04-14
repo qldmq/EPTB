@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../css/Main.css';
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [nickname, setNickname] = useState('');
   const [memberId, setMemberId] = useState('');
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     const storedMemberId = localStorage.getItem('memberId');
+    const storedNickname = localStorage.getItem('nickname'); // nickname을 localStorage에서 가져옴
 
-    if (token && storedMemberId) {
+    if (token && storedMemberId && storedNickname) {
       setIsLoggedIn(true);
       setMemberId(storedMemberId);
+      setNickname(storedNickname); // nickname을 상태에 저장
     } else {
-      setIsLoggedIn(false);
+      setIsLoggedIn(false); 
       setMemberId('');
+      setNickname(''); // 로그아웃 상태일 때는 nickname을 비워둠
     }
-  }, [location]); // URL 바뀔 때마다 상태 확인
+  }, []); // 초기 렌더링에서만 실행되도록 변경
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('memberId');
+    localStorage.removeItem('nickname'); // nickname도 삭제
     setIsLoggedIn(false);
     setMemberId('');
-    navigate('/');
+    setNickname('');
+    navigate('/'); // 홈으로 리디렉션
     window.location.reload(); // 완전 새로고침으로 상태 반영
   };
 
@@ -50,7 +55,7 @@ const Main = () => {
             <li><a href="/contact">연락처</a></li>
             {isLoggedIn ? (
               <>
-                <li><a href="/mypage">{memberId}님의 마이페이지</a></li>
+                <li><a href="/mypage">{nickname}님의 마이페이지</a></li> {/* nickname 표시 */}
                 <li><button onClick={handleLogout} className="auth-link">로그아웃</button></li>
               </>
             ) : (
