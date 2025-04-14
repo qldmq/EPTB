@@ -1,14 +1,35 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../css/Auth.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [memberId, setMemberId] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 로그인 처리 로직 추가
-    console.log('로그인 시도:', email, password);
+
+    try {
+      const response = await axios.post('http://localhost:8080/member/login', {
+        memberId,
+        password
+      }, {
+        withCredentials: true
+      });
+
+      // 로그인 성공 시 localStorage에 토큰 및 회원 아이디 저장
+      localStorage.setItem('accessToken', response.data.accessToken);
+      localStorage.setItem('memberId', response.data.memberId);
+
+      alert('로그인 성공!');
+      navigate('/');
+      window.location.reload(); // 메인 상태 반영
+    } catch (error) {
+      const message = error?.response?.data?.message || '로그인에 실패했습니다.';
+      alert(message);
+    }
   };
 
   return (
@@ -23,13 +44,13 @@ const Login = () => {
         <h2>로그인</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="email">이메일</label>
+            <label htmlFor="memberId">아이디</label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="이메일을 입력하세요"
+              type="text"
+              id="memberId"
+              value={memberId}
+              onChange={(e) => setMemberId(e.target.value)}
+              placeholder="아이디를 입력하세요"
               required
             />
           </div>
@@ -50,7 +71,6 @@ const Login = () => {
           계정이 없으신가요? <a href="/signup">회원가입</a>
         </p>
 
-        {/* 소셜 로그인 버튼들 */}
         <div className="social-login">
           <button className="kakao-login" onClick={() => window.location.href = '/auth/kakao'}>
             <img src="/images/kakao-icon.png" alt="카카오 로그인" />
